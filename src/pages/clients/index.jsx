@@ -1,28 +1,26 @@
-import { Button } from "@mui/material";
-import { Service } from "@modal";
-import { ServiceTable } from "../../components/ui";
+import { Clients } from "@modal";
+import { ClientTable} from "../../components/ui";
 import { useEffect, useState } from "react";
-import service from "../../service/service";
+import { clients } from "@service";
 import Pagination from '@mui/material/Pagination';
-
 const Index = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0)
-  const [params, setParams]= useState ({
-    limit: 5,
+  const [params, setParams] = useState({
+    limit:5,
     page:2
   })
 
   const getData = async () => {
     try {
-      const response = await service.get(params);
-      if (response.status === 200 && response?.data?.services) {
-        setData(response?.data?.services);
+      const response = await clients.get(params);
+      console.log(response);
+      if (response.status === 200 && response?.data?.clients_list) {
+        setData(response?.data?.clients_list);
         setCount(response?.data?.total)
         let total = Math.ceil(response.data.total / params.limit)
         setCount(total)
-      
       }
     } catch (error) {
       console.log(error);
@@ -30,8 +28,7 @@ const Index = () => {
   };
   useEffect(() => {
     getData();
-  }, [params]);
-
+  }, []);
   const handleChange = (event, value) => {
     setParams({
       ...params, 
@@ -40,18 +37,9 @@ const Index = () => {
   };
   return (
     <>
-      <Service open={open} handleClose={() => setOpen(false)} />
+      <Clients open={open} handleClose={() => setOpen(false)} />
       <div className=" flex flex-col gap-3">
-        <div className=" flex justify-end">
-          <Button
-            variant=" contained"
-            color="primary" 
-            onClick={() => setOpen(true)}
-          >
-            Add Service
-          </Button>
-        </div>
-        <ServiceTable data={data} />
+        <ClientTable data={data} />
         <Pagination count={count} page={params.page} onChange={handleChange}   sx={{marginLeft: '530px', marginTop: '20px'}}/>
       </div>
     </>

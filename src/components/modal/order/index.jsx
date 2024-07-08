@@ -31,7 +31,7 @@ const Index = ({ open, handleClose, item }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await service.get();
+        const response = await service.get({page: 1, limit: 10});
         if (response.status === 200 && response.data?.services) {
           setData(response.data.services);
         }

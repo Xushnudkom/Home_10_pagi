@@ -15,7 +15,7 @@ const Index = () => {
 
   const getData = async () => {
     try {
-      const response = await order.get();
+      const response = await order.get(params);
       console.log(response);
       if (response.status === 200 && response?.data?.orders_list) {
         setData(response?.data?.orders_list);
@@ -29,7 +29,7 @@ const Index = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [params]);
   const handleChange = (event, value) => {
     setParams({
       ...params, 

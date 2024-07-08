@@ -3,5 +3,6 @@ import VerifyModal from "./verify";
 import SignInModal from "./signin";
 import Service from "./service";
 import Order from "./order";
+import Clients from "./clients"
 
-export { LogOutModal, VerifyModal, SignInModal, Service, Order };
+export { LogOutModal, VerifyModal, SignInModal, Service, Order, Clients };
